@@ -46,6 +46,17 @@ class Protein(Polymer):
         super().__init__(name, sequence, self.amino_acid_weights)
 
 
+class Polymerase(Protein):
+    def bind_DNA(self, position):
+        pass
+
+
+class DNA(Polymer):
+    pass
+
+
+
+
 class MRNA(Polymer):
 
     nucleic_acid_weights = ModelData.nucleic_acid_weights
