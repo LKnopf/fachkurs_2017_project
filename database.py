@@ -30,6 +30,7 @@ class ModelData:
                           'Y': 181.188, 'V': 117.146}
 
     nucleic_acid_weights = {'A': 1.0, 'U': 2.2, 'G': 2.1, 'C': 1.3}
+    nucleic_acid_weights_DNA = {'A': 1.0, 'T': 2.2, 'G': 2.1, 'C': 1.3}
 
     def __init__(self):
         pass

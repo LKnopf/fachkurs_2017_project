@@ -1,5 +1,5 @@
 import database
-from molecules import Ribo, Protein, MRNA, PopulationCollection, ParticleCollection
+from molecules import Ribo, Protein, MRNA, PopulationCollection, ParticleCollection, DNA, Polymerase
 from translation import Translation
 import processes
 
@@ -48,6 +48,12 @@ class Model:
     def _initialize_states(self):
         self.states[Ribo] = PopulationCollection(Ribo)
         self.states[Ribo].populate("free ribos", 10)
+        self.states[Polymerase] = PopulationCollection(Polymerase)
+        self.states[Polymerase].populate("free Polymerase", 10)
+
+        self.states[DNA] = ParticleCollection(DNA)
+        self.states[DNA].add(DNA("DNA", "ATG"))
+
         self.states[MRNA] = ParticleCollection(MRNA)
         for name, sequence in self.db.get_states(MRNA):
             self.states[MRNA].add(MRNA(name, sequence))
