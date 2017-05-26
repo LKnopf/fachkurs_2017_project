@@ -1,6 +1,7 @@
 import database
 from molecules import Ribo, Protein, MRNA, PopulationCollection, ParticleCollection, DNA, Polymerase
 from translation import Translation
+from transcription import Transcription
 import processes
 
 
@@ -61,6 +62,7 @@ class Model:
 
     def _initialize_processes(self):
         self.processes[Translation] = Translation("Translation", self)
+        self.processes[Transcription] = Transcription("Transcription", self)
 
     def step(self):
         """
@@ -89,5 +91,5 @@ class Model:
 
 if __name__ == "__main__":
     c = Model()
-    c.simulate(100, log=True)
+    c.simulate(100, log=False)
 
