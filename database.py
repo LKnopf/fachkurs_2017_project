@@ -1,6 +1,7 @@
 import random as rnd
 import string
-
+import pandas as pd
+import numpy as np
 
 class ModelData:
     """
@@ -35,8 +36,10 @@ class ModelData:
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
     with open('genome.txt', 'r') as f:
         genome = f.read()
+        genome = genome.replace('\n','')
 
-    is_gene = np.zeros(len(dna))
+
+    is_gene = np.zeros(len(genome))
 
     for i in range(len(genes)):
         start = genes.loc[i,"Start"]
