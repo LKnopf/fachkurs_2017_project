@@ -31,6 +31,20 @@ class ModelData:
 
     nucleic_acid_weights = {'A': 1.0, 'U': 2.2, 'G': 2.1, 'C': 1.3}
 
+    genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
+    with open('genome.txt', 'r') as f:
+        genome = f.read()
+
+    is_gene = np.zeros(len(dna))
+
+    for i in range(len(genes)):
+        start = genes.loc[i,"Start"]
+        stop = genes.loc[i,"Stop"]
+        size = start - stop
+
+        for j in np.arange(start,stop,1):
+            is_gene[j] = 1
+
     def __init__(self):
         pass
 
