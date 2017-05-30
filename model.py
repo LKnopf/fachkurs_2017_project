@@ -55,6 +55,7 @@ class Model:
         self.states[DNA] = ParticleCollection(DNA)
         self.states[DNA].add(DNA("DNA", "ATG"))
 
+
         self.states[MRNA] = ParticleCollection(MRNA)
         for name, sequence in self.db.get_states(MRNA):
             self.states[MRNA].add(MRNA(name, sequence))
