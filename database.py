@@ -35,9 +35,9 @@ class ModelData:
 
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
 
-    genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTG"
+    genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
     is_gene = np.zeros(len(genome))
-    is_gene[6:len(is_gene)-6] = 1
+    is_gene[10:20] = 1
 
 
     #with open('genome.txt', 'r') as f:
