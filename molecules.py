@@ -61,7 +61,7 @@ class DNA(Polymer):
     def __init__(self, name, sequence=''):
 
         self.sequence = sequence
-        self.poly_pos = np.zeros(len(sequence))
+        self.poly_pos = {}
 
 
         super().__init__(name, self.sequence, self.nucleic_acid_weights_DNA)
@@ -69,9 +69,18 @@ class DNA(Polymer):
 
     def bind_polymerase(self, poly):
         print(self.poly_pos)
+
         if sum(self.poly_pos) < poly:
-            self.poly_pos[randint(0,len(self.poly_pos) -1 )] = 1
-            #print(self.poly_pos)
+            pos = randint(0,len(self.sequence) -1 )
+            number = len(self.poly_pos) + 1
+            
+            self.poly_pos[number] = pos
+
+    def move_polymerase(self):
+        
+        for entry in self.poly_pos: self.poly_pos[entry] = self.poly_pos[entry] + 1
+
+            
 
 
 
