@@ -65,6 +65,7 @@ class DNA(Polymer):
         self.poly_pos = {}
         self.poly_status = {}
         self.mass_of_monomers = self.nucleic_acid_weights_DNA
+        self.poly_rna = {}
 
 
     def bind_polymerase(self, poly):
@@ -79,8 +80,6 @@ class DNA(Polymer):
 
     def move_polymerase(self):
         
-
-
         for entry in self.poly_pos: 
             if ModelData.is_gene[self.poly_pos[entry]] == 1:
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 0:
@@ -89,16 +88,20 @@ class DNA(Polymer):
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 1:
                     self.poly_status[entry] = 0
 
-
-
         for entry in self.poly_pos: 
             if self.poly_pos[entry] + 1 >= len(self.sequence):
                 self.poly_pos[entry] = 0
             else:
                 self.poly_pos[entry] += 1
 
+    def add_base(self):
 
-            
+        pass
+
+
+
+
+    
 
 
 

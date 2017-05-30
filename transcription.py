@@ -11,29 +11,24 @@ class Transcription(processes.Process):
         # call the constructor of the base class (processes.Process in this case)
         super().__init__(name, model)
 
-        self.test = (DNA("DNA", self.model.db.genome))
-
     def update(self):
         """
         check for free polymerase
         """
         #self.model.states[Polymerase].molecules
 
-        s = self.model.states[DNA].get_molecules("DNA")
-
-
-        #s = self.model.states[DNA].molecules["DNA"]
-
-
-        print(s[0].sequence[1])
+        DNA_obj = self.model.states[DNA].get_molecules("DNA")[0]
 
 
 
-        self.test.bind_polymerase(self.model.states[Polymerase].molecules["free Polymerase"])
-        self.test.move_polymerase()
+
+        DNA_obj.bind_polymerase(self.model.states[Polymerase].molecules["free Polymerase"])
+
+        for i in range(500):
+            DNA_obj.move_polymerase()
 
         #print(self.test.poly_status)
-        #print(self.test.poly_pos)
+        print(DNA_obj.poly_pos)
         
 
 

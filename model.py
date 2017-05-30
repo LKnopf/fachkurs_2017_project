@@ -50,10 +50,10 @@ class Model:
         self.states[Ribo] = PopulationCollection(Ribo)
         self.states[Ribo].populate("free ribos", 10)
         self.states[Polymerase] = PopulationCollection(Polymerase)
-        self.states[Polymerase].populate("free Polymerase", 10)
+        self.states[Polymerase].populate("free Polymerase", 10) #4600 in natur
 
         self.states[DNA] = ParticleCollection(DNA)
-        self.states[DNA].add(DNA("DNA", "ATG"))
+        self.states[DNA].add(DNA("DNA", self.db.genome))
 
 
         self.states[MRNA] = ParticleCollection(MRNA)

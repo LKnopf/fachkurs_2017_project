@@ -35,25 +35,41 @@ class ModelData:
 
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
 
-    genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
-    is_gene = np.zeros(len(genome))
-    is_gene[10:20] = 1
 
 
-    #with open('genome.txt', 'r') as f:
-        #genome = f.read()
-        #genome = genome.replace('\n','')
-
-
+    #genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
     #is_gene = np.zeros(len(genome))
+    #is_gene[10:20] = 1
 
-    #for i in range(len(genes)):
-        #start = genes.loc[i,"Start"]
-        #stop = genes.loc[i,"Stop"]
-        #size = start - stop
 
-        #for j in np.arange(start,stop,1):
-            #is_gene[j] = 1
+    with open('genome.txt', 'r') as f:
+        genome = f.read()
+        genome = genome.replace('\n','')
+
+
+    is_gene = np.zeros(len(genome))
+
+    count_ATG = 0
+    count_div3 = 0
+
+    for i in range(len(genes)):
+        start = genes.loc[i,"Start"]
+        stop = genes.loc[i,"Stop"]
+        size = stop - start
+
+        #if (genome[start-1:start+2]) == "ATG" or "GTG" or "TTG": count_ATG += 1
+        #if (stop-start+1)%3 <= 0.001: count_div3 += 1
+
+
+        for j in np.arange(start,stop,1):
+            is_gene[j] = 1
+
+
+
+
+
+
+
 
     def __init__(self):
         pass
