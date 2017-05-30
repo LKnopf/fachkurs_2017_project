@@ -1,5 +1,7 @@
 from copy import copy
 from database import ModelData
+from random import randint
+import numpy as np
 
 
 class Molecule:
@@ -58,12 +60,19 @@ class DNA(Polymer):
 
     def __init__(self, name, sequence=''):
 
-        super().__init__(name, sequence, self.nucleic_acid_weights_DNA)
+        self.sequence = sequence
+        self.poly_pos = np.zeros(len(sequence))
 
 
-    def bind_Polymerase(self, position):
+        super().__init__(name, self.sequence, self.nucleic_acid_weights_DNA)
 
-        pass
+
+    def bind_polymerase(self, poly):
+        print(self.poly_pos)
+        if sum(self.poly_pos) < poly:
+            self.poly_pos[randint(0,len(self.poly_pos) -1 )] = 1
+            #print(self.poly_pos)
+
 
 
 
