@@ -60,20 +60,18 @@ class DNA(Polymer):
 
     def __init__(self, name, sequence=''):
 
+        self.name = name
         self.sequence = sequence
         self.poly_pos = {}
         self.poly_status = {}
-        #self.isgene = 
-
-
-        super().__init__(name, self.sequence, self.nucleic_acid_weights_DNA)
+        self.mass_of_monomers = self.nucleic_acid_weights_DNA
 
 
     def bind_polymerase(self, poly):
         
 
-        if sum(self.poly_pos) < poly:
-            pos = randint(0,len(self.sequence) -1 )
+        if len(self.poly_pos) < poly:
+            pos = randint(0,len(self.sequence))
             number = len(self.poly_pos) + 1
             
             self.poly_pos[number] = pos

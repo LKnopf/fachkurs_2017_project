@@ -22,18 +22,19 @@ class Transcription(processes.Process):
         s = self.model.states[DNA].get_molecules("DNA")
 
 
-        s = self.model.states[DNA].molecules["DNA"]
+        #s = self.model.states[DNA].molecules["DNA"]
 
 
-        #print(s.name)
+        print(s[0].sequence[1])
 
 
 
         self.test.bind_polymerase(self.model.states[Polymerase].molecules["free Polymerase"])
         self.test.move_polymerase()
 
-        print(self.test.poly_pos)
-        print(self.test.poly_status)
+        #print(self.test.poly_status)
+        #print(self.test.poly_pos)
+        
 
 
 
