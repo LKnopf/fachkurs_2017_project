@@ -73,14 +73,17 @@ class DNA(Polymer):
 
         if len(self.poly_pos) < poly:
             pos = randint(0,len(self.sequence))
+            #pos = randint(0,4)
             number = len(self.poly_pos) + 1
+                                   
+            if pos in list(self.poly_pos.values()):
+                #print("BUMM")
+                pass
             
-            self.poly_pos[number] = pos
-            self.poly_status[number] = 0
+            else: 
+                self.poly_pos[number] = pos
+                self.poly_status[number] = 0
 
-        xx = list(self.poly_pos.values())    ## Wenn ich das printe, ändert sich die Positon irgendwie immer um 500 pro step, wtf?## und ohne self läufts nicht
-        print(xx)                       
-        #if self.poly_pos in xx == TRUE
            
            ## Ändere Status zu ungebunden! Und versuche neu zu binden! Gibt es dafür schon einen Status? 
            ## Wir wollen ja eigentlich auch nur die ungebundenen Polys die Binde funktion machen lassen## 
