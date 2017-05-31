@@ -64,6 +64,21 @@ class ModelData:
         for j in np.arange(start,stop,1):
             is_gene[j] = 1
 
+    """
+    def gaussian(x, mu, sig):
+        return np.exp(-np.power(x - mu, 2.) / (2 * np.power(sig, 2.)))
+
+
+    poly_bind_chance = np.zeros(len(genome))
+    genome_pos = range(len(genome))
+
+    #for i in genes.loc[:,"Start"]:
+        print(i)
+        poly_bind_chance += gaussian(genome_pos, i, 300)
+
+    poly_bind_chance = poly_bind_chance / sum(poly_bind_chance)
+    """
+
 
 
 
