@@ -66,6 +66,7 @@ class DNA(Polymer):
         self.poly_status = {}
         self.mass_of_monomers = self.nucleic_acid_weights_DNA
         self.poly_rna = {}
+        self.poly_transcript = {}
 
 
     def bind_polymerase(self, poly):
@@ -74,15 +75,16 @@ class DNA(Polymer):
         if len(self.poly_pos) < poly:
             pos = randint(0,len(self.sequence))
             #pos = randint(0,4)
-            number = len(self.poly_pos) + 1
+            name = len(self.poly_pos) + 1
                                    
             if pos in list(self.poly_pos.values()):
                 #print("BUMM")
                 pass
             
             else: 
-                self.poly_pos[number] = pos
-                self.poly_status[number] = 0
+                self.poly_pos[name] = pos
+                self.poly_status[name] = 0
+                self.poly_transcript[name] = []
 
            
            ## Ändere Status zu ungebunden! Und versuche neu zu binden! Gibt es dafür schon einen Status? 
@@ -90,26 +92,54 @@ class DNA(Polymer):
 
 
 
-    def move_polymerase(self):
+    def move_polymerase(self, mRNA_collection):
         
         for entry in self.poly_pos: 
             if ModelData.is_gene[self.poly_pos[entry]] == 1:
+                #print("inGENE")
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 0:
+                    #print("STARTGENE")
                     self.poly_status[entry] = 1
+                    
+                    
             else:
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 1:
                     self.poly_status[entry] = 0
+                    self.terminate(entry, mRNA_collection)
 
-        for entry in self.poly_pos: 
+        for entry in self.poly_pos:
+
+            if self.poly_status[entry] == 1:
+                self.add_base(entry)
+
             if self.poly_pos[entry] + 1 >= len(self.sequence):
                 self.poly_pos[entry] = 0
             else:
                 self.poly_pos[entry] += 1
 
 
-    def add_base(self):
+    def add_base(self, entry):
+        
+        self.poly_transcript[entry].append(self.sequence[self.poly_pos[entry]])
+        #print(self.poly_transcript[entry])
 
-        pass
+
+
+    def terminate(self, kuchen, mRNA_collection):
+        #print(entry)
+        #print(self.poly_pos[entr])
+        transcript = self.poly_transcript[kuchen]
+
+        transcript = [w.replace("T", "U") for w in transcript]
+
+        name = str(randint(0,10000)) #hier aus genliste suchen
+        #print(name)
+
+        mRNA_collection.add(MRNA(name, ''.join(transcript)))
+        #print(mRNA_collection.get_molecules(name)[0].sequence)
+    
+        self.poly_transcript[kuchen] = []
+
 
 
 

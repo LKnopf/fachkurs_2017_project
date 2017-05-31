@@ -49,6 +49,7 @@ class ModelData:
 
     is_gene = np.zeros(len(genome))
 
+
     count_ATG = 0
     count_div3 = 0
 
@@ -63,6 +64,8 @@ class ModelData:
 
         for j in np.arange(start,stop,1):
             is_gene[j] = 1
+
+
 
     """
     def gaussian(x, mu, sig):
