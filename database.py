@@ -36,7 +36,6 @@ class ModelData:
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
 
 
-
     #genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
     #is_gene = np.zeros(len(genome))
     #is_gene[10:20] = 1
@@ -54,6 +53,7 @@ class ModelData:
     count_div3 = 0
 
     for i in range(len(genes)):
+
         start = genes.loc[i,"Start"]
         stop = genes.loc[i,"Stop"]
         size = stop - start
@@ -64,6 +64,7 @@ class ModelData:
 
         for j in np.arange(start,stop,1):
             is_gene[j] = 1
+
 
 
 
