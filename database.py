@@ -53,7 +53,6 @@ class ModelData:
         genome = f.read()
         genome = genome.replace('\n','')
 
-    print(len(poly_bind_chance) - len(genome))
     is_gene = np.zeros(len(genome))
 
 
