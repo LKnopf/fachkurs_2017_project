@@ -50,15 +50,16 @@ class Model:
         self.states[Ribo] = PopulationCollection(Ribo)
         self.states[Ribo].populate("free ribos", 10)
         self.states[Polymerase] = PopulationCollection(Polymerase)
-        self.states[Polymerase].populate("free Polymerase", 10) #4600 in natur
+        self.states[Polymerase].populate("Polymerase_total", 10) #4600 in natur
+        
 
         self.states[DNA] = ParticleCollection(DNA)
         self.states[DNA].add(DNA("DNA", self))
 
 
         self.states[MRNA] = ParticleCollection(MRNA)
-        for name, sequence in self.db.get_states(MRNA):
-            self.states[MRNA].add(MRNA(name, sequence))
+        #for name, sequence in self.db.get_states(MRNA):
+            #self.states[MRNA].add(MRNA(name, sequence))
         self.states[Protein] = ParticleCollection(Protein)
 
     def _initialize_processes(self):
@@ -69,6 +70,9 @@ class Model:
         """
         Do one update step for each process and save the results.
         """
+
+
+
         for p in self.processes:
             self.processes[p].update()
 
@@ -93,4 +97,5 @@ class Model:
 if __name__ == "__main__":
     c = Model()
     c.simulate(50, log=False)
+    print(c.states[Protein].get_molecules())
 

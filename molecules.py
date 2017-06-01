@@ -74,19 +74,23 @@ class DNA(Polymer):
     def bind_polymerase(self):
         
 
-        if len(self.poly_pos) < self.model.states[Polymerase].molecules["free Polymerase"]:
+
+
+        if len(self.poly_pos) < self.model.states[Polymerase].molecules["Polymerase_total"]:
             pos = randint(0,len(self.sequence))
-            #pos = randint(0,4)
+            prob_bind = self.model.db.poly_bind_chance
+            pos = np.random.choice(np.arange(len(prob_bind)), p=prob_bind)
             name = len(self.poly_pos) + 1
+
                                    
             if pos in list(self.poly_pos.values()):
-                #print("BUMM")
                 pass
             
             else: 
                 self.poly_pos[name] = pos
                 self.poly_status[name] = 0
                 self.poly_transcript[name] = []
+                self.model.states[Polymerase].populate("Polymerase_bound", 1)
 
            
            ## Ändere Status zu ungebunden! Und versuche neu zu binden! Gibt es dafür schon einen Status? 
@@ -98,9 +102,9 @@ class DNA(Polymer):
         
         for entry in self.poly_pos: 
             if ModelData.is_gene[self.poly_pos[entry]] == 1:
-                #print("inGENE")
+                
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 0:
-                    #print("STARTGENE")
+                    
                     self.poly_status[entry] = 1
                     
                     
@@ -123,13 +127,11 @@ class DNA(Polymer):
     def add_base(self, entry):
         
         self.poly_transcript[entry].append(self.sequence[self.poly_pos[entry]])
-        #print(self.poly_transcript[entry])
 
 
 
     def terminate(self, entry):
-        #print(entry)
-        #print(self.poly_pos[entr])
+
         transcript = self.poly_transcript[entry]
 
         transcript = [w.replace("T", "U") for w in transcript]
@@ -139,8 +141,10 @@ class DNA(Polymer):
         name = self.model.db.genes.loc[self.model.db.genes['Stop'] == gene_end]["Locus"].item()
 
         self.model.states[MRNA].add(MRNA(name, ''.join(transcript)))
-        #print(self.model.states[MRNA].get_molecules(name)[0].sequence)
+
         self.poly_transcript[entry] = []
+
+        #print(self.model.states[MRNA].get_molecules(name)[0].name)
 
 
 

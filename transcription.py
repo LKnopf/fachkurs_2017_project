@@ -22,7 +22,7 @@ class Transcription(processes.Process):
         for i in range(1):   #500
             DNA_obj.bind_polymerase()
             
-        for i in range(1000):   #500
+        for i in range(50):   #50
             DNA_obj.move_polymerase()
             #print(DNA_obj.poly_transcript)
             

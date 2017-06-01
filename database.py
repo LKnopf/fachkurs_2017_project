@@ -2,6 +2,7 @@ import random as rnd
 import string
 import pandas as pd
 import numpy as np
+import tarfile
 
 class ModelData:
     """
@@ -35,20 +36,24 @@ class ModelData:
 
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
 
-    f = open('poly_bind_chance.txt', 'r')
-    poly_bind_chance = f.readlines()
+    #tar = tarfile.open("prob_poly_bind.tar.gz", "r:gz")
+    #tar.extract('poly_bind_chance.txt')
 
+    f = open('prob_bind_1.txt', 'r')
+    prob_bind_1 = f.readlines()
 
-    #genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
-    #is_gene = np.zeros(len(genome))
-    #is_gene[10:20] = 1
+    f = open('prob_bind_2.txt', 'r')
+    prob_bind_2 = f.readlines()
+
+    poly_bind_chance = prob_bind_1 + prob_bind_2 + [0]
+    
 
 
     with open('genome.txt', 'r') as f:
         genome = f.read()
         genome = genome.replace('\n','')
 
-
+    print(len(poly_bind_chance) - len(genome))
     is_gene = np.zeros(len(genome))
 
 

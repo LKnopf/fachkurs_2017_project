@@ -53,7 +53,7 @@ class Translation(processes.Process):
         if 'ribo' in mrna.bindings:
             prot = Protein(mrna.name.lower().capitalize())  # protein names are like mRNA names, but only capitalized
             for i in range(int(len(mrna.sequence) / 3)):  # go through codons
-                codon = mrna.sequence[ i:i + 3 ]
+                codon = mrna.sequence[ i*3:i*3 + 3 ]
                 amino_acid = database.ModelData.codon_to_amino_acid[codon]
                 if amino_acid != '*':  # if STOP codon
                     prot.add_monomer(amino_acid)
