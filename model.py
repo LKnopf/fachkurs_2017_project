@@ -97,5 +97,5 @@ class Model:
 if __name__ == "__main__":
     c = Model()
     c.simulate(50, log=False)
-    print(c.states[Protein].get_molecules())
+    #print(c.states[Protein].get_molecules())
 
