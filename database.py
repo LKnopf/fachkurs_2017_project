@@ -35,6 +35,9 @@ class ModelData:
 
     genes = pd.read_csv('ProteinTable167_161521.txt',  sep='\t')
 
+    f = open('poly_bind_chance.txt', 'r')
+    poly_bind_chance = f.readlines()
+
 
     #genome = "ATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTGATGACTGCCATGACTGTTATGACTGAAATGACTG"
     #is_gene = np.zeros(len(genome))
