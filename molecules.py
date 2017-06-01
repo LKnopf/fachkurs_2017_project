@@ -58,21 +58,23 @@ class DNA(Polymer):
 
     nucleic_acid_weights_DNA = ModelData.nucleic_acid_weights_DNA
 
-    def __init__(self, name, sequence=''):
+    def __init__(self, name, model):
 
+        self.model = model
         self.name = name
-        self.sequence = sequence
+        self.sequence = self.model.db.genome
         self.poly_pos = {}
         self.poly_status = {}
-        self.mass_of_monomers = self.nucleic_acid_weights_DNA
+        self.mass_of_monomers = self.model.db.nucleic_acid_weights_DNA
         self.poly_rna = {}
         self.poly_transcript = {}
-
-
-    def bind_polymerase(self, poly):
         
 
-        if len(self.poly_pos) < poly:
+
+    def bind_polymerase(self):
+        
+
+        if len(self.poly_pos) < self.model.states[Polymerase].molecules["free Polymerase"]:
             pos = randint(0,len(self.sequence))
             #pos = randint(0,4)
             name = len(self.poly_pos) + 1
@@ -92,7 +94,7 @@ class DNA(Polymer):
 
 
 
-    def move_polymerase(self, mRNA_collection):
+    def move_polymerase(self):
         
         for entry in self.poly_pos: 
             if ModelData.is_gene[self.poly_pos[entry]] == 1:
@@ -105,7 +107,7 @@ class DNA(Polymer):
             else:
                 if ModelData.is_gene[self.poly_pos[entry]-1] == 1:
                     self.poly_status[entry] = 0
-                    self.terminate(entry, mRNA_collection)
+                    self.terminate(entry)
 
         for entry in self.poly_pos:
 
@@ -125,20 +127,20 @@ class DNA(Polymer):
 
 
 
-    def terminate(self, kuchen, mRNA_collection):
+    def terminate(self, entry):
         #print(entry)
         #print(self.poly_pos[entr])
-        transcript = self.poly_transcript[kuchen]
+        transcript = self.poly_transcript[entry]
 
         transcript = [w.replace("T", "U") for w in transcript]
 
-        name = str(randint(0,10000)) #hier aus genliste suchen
-        #print(name)
+        gene_end = self.poly_pos[entry]
 
-        mRNA_collection.add(MRNA(name, ''.join(transcript)))
-        #print(mRNA_collection.get_molecules(name)[0].sequence)
-    
-        self.poly_transcript[kuchen] = []
+        name = self.model.db.genes.loc[self.model.db.genes['Stop'] == gene_end]["Locus"].item()
+
+        self.model.states[MRNA].add(MRNA(name, ''.join(transcript)))
+        #print(self.model.states[MRNA].get_molecules(name)[0].sequence)
+        self.poly_transcript[entry] = []
 
 
 
@@ -175,7 +177,7 @@ class MoleculeCollection:
     def count(self, name):
         pass
 
-    def populate(self, name, number):
+    def populate(self, name, number): 
         for _ in range(number):
             self.add(self.molecule_type(name))
 
