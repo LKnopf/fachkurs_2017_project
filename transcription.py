@@ -19,19 +19,11 @@ class Transcription(processes.Process):
 
         DNA_obj = self.model.states[DNA].get_molecules("DNA")[0]
 
-
-
-
-        #DNA_obj.bind_polymerase(self.model.states[Polymerase].molecules["free Polymerase"])
-
         for i in range(1):   #500
-            DNA_obj.bind_polymerase(self.model.states[Polymerase].molecules["free Polymerase"])
+            DNA_obj.bind_polymerase()
             
-
-
-
         for i in range(1000):   #500
-            DNA_obj.move_polymerase(self.model.states[MRNA])
+            DNA_obj.move_polymerase()
             #print(DNA_obj.poly_transcript)
             
 
