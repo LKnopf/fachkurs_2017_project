@@ -53,7 +53,7 @@ class Model:
         self.states[Polymerase].populate("free Polymerase", 10) #4600 in natur
 
         self.states[DNA] = ParticleCollection(DNA)
-        self.states[DNA].add(DNA("DNA", self.db.genome))
+        self.states[DNA].add(DNA("DNA", self))
 
 
         self.states[MRNA] = ParticleCollection(MRNA)
